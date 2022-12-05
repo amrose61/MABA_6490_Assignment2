@@ -16,4 +16,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://amrose61:$HF_TOKEN@huggingface.co/spaces/amrose61/MABA_6490_Assignment2 main
+        run: git push --force https://amrose61:$HF_TOKEN@huggingface.co/spaces/amrose61/MABA_6490_Assignment2 main
