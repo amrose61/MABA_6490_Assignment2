@@ -65,3 +65,5 @@ for query in queries:
         print("Highlights from reviews:")
         print(summary)
         print("\n")
+
+st.title("Enjoy your vacation!")
