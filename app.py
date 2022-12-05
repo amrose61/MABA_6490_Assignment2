@@ -32,18 +32,18 @@ import scipy.spatial
 import torch
 
 
-with open("santorini_df.pkl", "rb") as file1: 
+with open("santorini_df.pkl", "rb") as file1:
     df = pkl.load(file1)
-with open("santorini_corpus.pkl", "rb") as file2: 
+with open("santorini_corpus.pkl", "rb") as file2:
     corpus = pkl.load(file2)
-with open("santorini_embeddings.pkl", "rb") as file3: 
+with open("santorini_embeddings.pkl", "rb") as file3:
     corpus_embeddings = pkl.load(file3)
-    
+
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
-    
+
 
 queries = st.text_input('What are you looking for in a hotel?', value = "",
-                        type=str) 
+                        type=str)
 
 st.write('You are looking for a hotel that is', queries)
 
@@ -56,18 +56,12 @@ for query in queries:
     top_results = torch.topk(cos_scores, k=top_k)
     print("\n\n======================\n\n")
     print("\nTop 5 Hotel reviews matching your description:")
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    for score, idx in zip(top_results[0], top_results[1]):
+        hotel = df.Hotel[df['all_reviews']== corpus[idx]].to_string(index=False)
+        summary = df.key_words[df['all_reviews']== corpus[idx]].to_string(index=False).replace("[", '').replace("]", '')
+        print("Hotel:  " , hotel)
+        print("(Score: {:.4f})".format(score))
+        print("Highlights from reviews:")
+        print(summary)
+        print("\n")
